@@ -84,10 +84,72 @@ function orderByYear(moviesArray) {
 }
 
 // Iteration 6: Alphabetic Order - Order by title and print the first 20 titles
-function orderAlphabetically(moviesArray) {}
+function orderAlphabetically(moviesArray) {
+  let pushArr = [];
+  // if the array is empty, return 0
+  if (moviesArray.length !== 0) {
+    // we create an array of only strings
+    moviesArray.map((e) => pushArr.push(e.title));
+    // order them
+    pushArr.sort();
+    // return only 20 items
+    return pushArr.slice(0, 20);
+  } else {
+    return 0;
+  }
+}
 
 // BONUS - Iteration 7: Time Format - Turn duration of the movies from hours to minutes
-function turnHoursToMinutes(moviesArray) {}
+function turnHoursToMinutes(moviesArray) {
+  let pushArr = [];
+  // if the array is empty, return 0
+  if (moviesArray.length !== 0) {
+    // we get the duration, remove the chars "h" and "min", then we do an split, then do the math
+    moviesArray.forEach((e) => {
+      let time = e.duration.replace("h", "").replace("min", "").split(" ");
+      let minTime =
+        time[1] !== undefined
+          ? Number(time[0]) * 60 + Number(time[1])
+          : Number(time[0]) * 60;
+      e.duration = Number(minTime);
+    });
+    return moviesArray;
+  } else {
+    return 0;
+  }
+}
 
 // BONUS - Iteration 8: Best yearly score average - Best yearly score average
-function bestYearAvg(moviesArray) {}
+function bestYearAvg(moviesArray) {
+  // we create two variables that will container both best year and his avgscore
+  let bestYear = 0,
+    bestAvg = 0;
+  // we check if the array is empty
+  if (moviesArray.length !== 0) {
+    // we iterate through all the array
+    moviesArray.forEach((e) => {
+      // we create a new arrays cotinaing only the movies with same year as the foreach
+      let filterYear = moviesArray.filter((el) => el.year == e.year);
+      // total score of that films
+      let score = 0;
+      // we do the sum
+      filterYear.forEach((elm) => {
+        score += elm.score;
+      });
+      // we calculate the avg score
+      let avgScore = score / filterYear.length;
+      // if the new avg is biger that our saved one, we replace it
+      if (bestAvg < avgScore) {
+        bestAvg = avgScore;
+        bestYear = e.year;
+      }
+      // if the score is equal but the year is older, then we pick the older one
+      else if (bestAvg == avgScore) {
+        bestYear = bestYear > e.year ? e.year : bestYear;
+      }
+    });
+    return `The best year was ${bestYear} with an average score of ${bestAvg}`;
+  } else {
+    return null;
+  }
+}
