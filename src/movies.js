@@ -54,11 +54,11 @@ function dramaMoviesScore(moviesArray) {
 
 // Iteration 5: Ordering by year - Order by year, ascending (in growing order)
 function orderByYear(moviesArray) {
-  let sortedMoviesArr = structuredClone(moviesArray);
+  let sortedMoviesArr = moviesArray.map((e) => e);
   // if the array is empty, return 0
   if (moviesArray.length !== 0) {
     // we clone the array
-    sortedMoviesArr.sort((a, b) => {
+    let resultArr = sortedMoviesArr.sort((a, b) => {
       // a is bigger then goes back
       if (a.year > b.year) {
         return 1;
@@ -77,9 +77,10 @@ function orderByYear(moviesArray) {
     });
     // if there is no drama movies, return 0
     // else, return the average score
-    return sortedMoviesArr;
+    console.log(resultArr);
+    return resultArr;
   } else {
-    return 0;
+    return [];
   }
 }
 
@@ -93,29 +94,29 @@ function orderAlphabetically(moviesArray) {
     // order them
     pushArr.sort();
     // return only 20 items
-    return pushArr.slice(0, 20);
+    return pushArr.map((e) => e).slice(0, 20);
   } else {
-    return 0;
+    return [];
   }
 }
 
 // BONUS - Iteration 7: Time Format - Turn duration of the movies from hours to minutes
 function turnHoursToMinutes(moviesArray) {
-  let pushArr = [];
+  let pushArr = moviesArray.map((e) => e);
   // if the array is empty, return 0
-  if (moviesArray.length !== 0) {
+  if (pushArr.length !== 0) {
     // we get the duration, remove the chars "h" and "min", then we do an split, then do the math
-    moviesArray.forEach((e) => {
-      let time = e.duration.replace("h", "").replace("min", "").split(" ");
+    pushArr.forEach((el) => {
+      let time = el.duration.replace("h", "").replace("min", "").split(" ");
       let minTime =
         time[1] !== undefined
-          ? Number(time[0]) * 60 + Number(time[1])
-          : Number(time[0]) * 60;
-      e.duration = Number(minTime);
+          ? parseFloat(time[0]) * 60 + parseFloat(time[1])
+          : parseFloat(time[0]) * 60;
+      el.duration = parseFloat(minTime);
     });
-    return moviesArray;
+    return pushArr;
   } else {
-    return 0;
+    return [];
   }
 }
 
