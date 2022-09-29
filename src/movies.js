@@ -53,7 +53,35 @@ function dramaMoviesScore(moviesArray) {
 }
 
 // Iteration 5: Ordering by year - Order by year, ascending (in growing order)
-function orderByYear(moviesArray) {}
+function orderByYear(moviesArray) {
+  let sortedMoviesArr = structuredClone(moviesArray);
+  // if the array is empty, return 0
+  if (moviesArray.length !== 0) {
+    // we clone the array
+    sortedMoviesArr.sort((a, b) => {
+      // a is bigger then goes back
+      if (a.year > b.year) {
+        return 1;
+      }
+      if (a.year < b.year) {
+        return -1;
+      }
+      // year is equal we compare title
+      if (a.year == b.year) {
+        // if a title is bigger, goes back
+        if (a.title > b.title) return 1;
+        if (a.title < b.title) return -1;
+      }
+      // a must be equal to b
+      return 0;
+    });
+    // if there is no drama movies, return 0
+    // else, return the average score
+    return sortedMoviesArr;
+  } else {
+    return 0;
+  }
+}
 
 // Iteration 6: Alphabetic Order - Order by title and print the first 20 titles
 function orderAlphabetically(moviesArray) {}
