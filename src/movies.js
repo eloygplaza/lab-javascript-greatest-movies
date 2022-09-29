@@ -22,12 +22,8 @@ function scoresAverage(moviesArray) {
     let avgScore = 0;
     moviesArray.forEach((e) => {
       e.score == null ? "" : (avgScore += e.score);
-      //console.log(e.score);
     });
-    //console.log(avgScore);
-    // console.log(
-    //   "el return: " + Number((avgScore / moviesArray.length).toFixed(2))
-    // );
+    // return average score
     return Number((avgScore / moviesArray.length).toFixed(2));
   } else {
     return 0;
@@ -35,7 +31,26 @@ function scoresAverage(moviesArray) {
 }
 
 // Iteration 4: Drama movies - Get the average of Drama Movies
-function dramaMoviesScore(moviesArray) {}
+function dramaMoviesScore(moviesArray) {
+  // if the array is empty, return 0
+  if (moviesArray.length !== 0) {
+    let avgScore = 0;
+    let counterDrama = 0;
+    moviesArray.forEach((e) => {
+      if (e.genre.includes("Drama") && e.score !== null) {
+        avgScore += e.score;
+        counterDrama++;
+      }
+    });
+    // if there is no drama movies, return 0
+    // else, return the average score
+    return counterDrama === 0
+      ? 0
+      : Number((avgScore / counterDrama).toFixed(2));
+  } else {
+    return 0;
+  }
+}
 
 // Iteration 5: Ordering by year - Order by year, ascending (in growing order)
 function orderByYear(moviesArray) {}
